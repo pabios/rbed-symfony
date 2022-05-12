@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Houssing{% endblock %}
+
+{% block body %}
+    <h1>Houssing</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ houssing.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ houssing.name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ houssing.price }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ houssing.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ houssing.description }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ houssing.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_houssing_index') }}">back to list</a>
+
+    <a href="{{ path('app_houssing_edit', {'id': houssing.id}) }}">edit</a>
+    <a href="{{path('app_room_create',{'id':houssing.id})}}" type="button" id="btnRoomDetail">ajouter chambre</button> 
+
+    {{ include('houssing/_delete_form.html.twig') }}
+{% endblock %}

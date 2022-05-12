@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Houssing{% endblock %}
+
+{% block body %}
+    <h1>Create new Houssing</h1>
+
+    {{ include('houssing/_form.html.twig') }}
+
+    <a href="{{ path('app_houssing_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Houssing index{% endblock %}
+
+{% block body %}
+    <h1>Houssing index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for houssing in houssings %}
+            <tr>
+                <td>{{ houssing.id }}</td>
+                <td>{{ houssing.name }}</td>
+                <td>{{ houssing.price }}</td>
+                <td>{{ houssing.status ? 'Yes' : 'No' }}</td>
+                <td>{{ houssing.description }}</td>
+                <td>{{ houssing.slug }}</td>
+                <td>
+                    <a href="{{ path('app_houssing_show', {'id': houssing.id}) }}">show</a>
+                    <a href="{{ path('app_houssing_edit', {'id': houssing.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_houssing_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Houssing{% endblock %}
+
+{% block body %}
+
+
+
+<form action="{{path("app_search")}}"class="row g-3">
+    <div class="col-md-3">
+        <label for="where" class="form-label">Where ?</label>
+        <input type="text" class="form-control" id="where" name="where">
+    </div>
+    <div class="col-md-2">
+        <label for="begin" class="form-label">When ?</label>
+        <input type="date" class="form-control" id="begin" name="begin">
+    </div>
+    <div class="col-md-2">
+        <label for="end" class="form-label">Until ?</label>
+        <input type="date" class="form-control" id="end" name="end">
+    </div>
+    <div class="col-md-2">
+        <label for="people" class="form-label">Combien ?</label>
+        <input type="number" class="form-control" id="people" name="people">
+    </div>
+
+    <div class="col-3 d-flex">
+        <button type="submit" id="ok" class="mt-auto btn btn-dark">Chercher</button>
+    </div>
+</form>
+<br><br>
+<div class="card" style="display: flex; flex-direction: row;">
+    {% if datas is defined  %}
+        {% for data in datas %}
+        <div class="card" style="width: 18rem; margin-right:10px; ">
+            <img src="https://www.lacomblezimmobilier.com/photos/diapo2vente-appartement-lille-V109_17112019223720_109023.jpg" alt=""   >
+            <div class="card-body">
+              <h5 class="card-title">{{data.name}}</h5>
+              <h5 class="card-title"> <kbd>Nombre de place disponible </kbd> :{{data.getPeopleMax()}}</h5>
+              <p class="card-text">{{data.description}}</p>
+              <a href="#" class="btn btn-primary">{{data.id}} &#8364;</a>
+              <a href="#" class="btn btn-primary"> Reserver   </a>
+            </div>
+          </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
