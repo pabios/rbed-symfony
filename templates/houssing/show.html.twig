@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Houssing{% endblock %}
-
+ 
 {% block body %}
+        
+
+
+
+
+
+
+
     <h1>Houssing</h1>
 
     <table class="table">
@@ -37,7 +45,49 @@
     <a href="{{ path('app_houssing_index') }}">back to list</a>
 
     <a href="{{ path('app_houssing_edit', {'id': houssing.id}) }}">edit</a>
-    <a href="{{path('app_room_create',{'id':houssing.id})}}" type="button" id="btnRoomDetail">ajouter chambre</button> 
+    <a href="{{path('app_room_create',{'id':houssing.id})}}" type="button" id="btnRoomDetail">ajouter chambre</a> 
 
     {{ include('houssing/_delete_form.html.twig') }}
+
+    <div id="calendar"> </div>
+    <script>
+    var route = "{{ path('apiBooking', {'id': houssing.id})|escape('js') }}";
+    // alert(route);
+    
+    fetch('http://localhost:8000'+route)
+        .then(res => {
+                console.log("bonjour le toto ");
+
+                return res.json()
+        })
+        .then(datas =>{
+            console.log(datas)
+            let calendarEl = document.getElementById('calendar');
+
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prevYear,prev,next,nextYear today',
+                center: 'title',
+                right: 'dayGridMonth'
+            },
+            validRange: { start: new Date },
+            initialDate: new Date,
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            dayMaxEvents: true, // allow "more" link when too many events
+            events: datas
+                
+            
+            });
+
+            calendar.render();
+              
+           
+            }
+        )
+
+
+
+
+    </script>
 {% endblock %}

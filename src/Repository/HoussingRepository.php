@@ -68,7 +68,6 @@ class HoussingRepository extends ServiceEntityRepository
                 ->orWhere(" :dateB BETWEEN b.beginDate AND b.endDate")
                 ->orWhere(" b.beginDate BETWEEN :dateA AND :dateB");
 
-
          $qb =  $this->createQueryBuilder('h')
                     ->join('h.adresse','ha')
                     ->join('h.rooms','hr')

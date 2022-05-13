@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BookingController extends AbstractController
@@ -36,11 +37,53 @@ class BookingController extends AbstractController
         $em->persist($booking);
         $em->flush();
 
+         //debut json
+
+        //  $lesBooking = $houssing->getBookings();
+        // $tab = [];
+            
+        // foreach($lesBooking as $lb){
+        //     $tab[] = ["title"=> 'Reserver',"start"=>$lb->getBeginDate(),'end'=>$lb->getEndDate() ];
+
+        // }
+        // $rep = new JsonResponse($tab);
+        // //dd($rep);
+        // return $rep;
+
+        
         //dd($begin,$end,$houssingId);
         
         return $this->render('booking/index.html.twig', [
             'controller_name' => 'BookingController',
         ]);
+    }
+    #[Route('/{id}/apiBooking',name:'apiBooking')]
+    public function apiBooking(Request $request,Houssing $houssing){
+
+        $lesBooking = $houssing->getBookings();
+        $tab = [];
+            
+        foreach($lesBooking as $lb){
+            $tab[] = ["title"=> 'Reserver',"start"=>$lb->getBeginDate(),'end'=>$lb->getEndDate() ];
+        }
+        //dd($rep);
+        return $this->json($tab) ;
+
+        //dd($lesBooking);
+
+        // [
+
+        //     {
+        //       title: 'Long Event',
+        //       start: '2022-04-01',
+        //       end: '2022-04-10'
+        //     },
+        //     {
+        //       title: 'Long Event',
+        //       start: '2022-04-15',
+        //       end: '2022-04-18'
+        //     }
+        //   ]
     }
 
 

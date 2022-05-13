@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
+    console.log('mamamiya');
+    console.log(route);
+    
     let resultat = document.querySelector('#resultat');
     let leInput = document.querySelector('#where');
     let datalist = document.querySelector('#datalist');
@@ -25,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function(){
         )
        
 
+       
 
      
 });

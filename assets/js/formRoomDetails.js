@@ -4,6 +4,7 @@ const addButton = document.querySelector(".addBed");
 const saveButton = document.querySelector(".save");
 const removeButtons = document.querySelectorAll(".removeBed");
  
+console.log(route);
 
 function onClickRemove(){
     this.parentNode.remove();
@@ -24,7 +25,7 @@ function addFormToCollection() {
     //item.querySelector("button").addEventListener("click",onClickRemove);
     ul.dataset.index++;
 };
-addButton.addEventListener("click", addFormToCollection)
+addButton.addEventListener("click", addFormToCollection())
 
 
 saveButton.addEventListener("click", function () {
