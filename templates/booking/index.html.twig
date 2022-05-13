@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookingController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{# {{dump(app.user)}} #}
+<div class="example-wrapper">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong> Felicitation!</strong>  <kbd>{{app.user.fullName}}</kbd>  votre reservation a bien ete pris en compte
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+</div>
+{% endblock %}

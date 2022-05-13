@@ -3,7 +3,7 @@ const template = document.querySelector("#form-template");
 const addButton = document.querySelector(".addBed");
 const saveButton = document.querySelector(".save");
 const removeButtons = document.querySelectorAll(".removeBed");
-
+ 
 
 function onClickRemove(){
     this.parentNode.remove();
@@ -30,3 +30,4 @@ addButton.addEventListener("click", addFormToCollection)
 saveButton.addEventListener("click", function () {
     template.remove();
 })
+

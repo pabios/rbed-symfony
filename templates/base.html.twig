@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}
-				AIR BED
+				AIRE BED
 			{% endblock %}
 		</title>
 		{% block stylesheets %}
@@ -24,7 +24,7 @@
 		 
     
 	 <header class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0 shadow">
-		<a href="#" class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Air bed</a>
+		<a href="#" class="navbar-brand col-md-3 col-lg-2 me-0 px-3">AIRE BED</a>
 
 		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
@@ -73,7 +73,7 @@
 			  <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
 				{% if app.user %}
 				<img src="https://www.pinclipart.com/picdir/middle/559-5594866_necktie-drawing-vector-round-avatar-user-icon-png.png" alt="" width="32" height="32" class="rounded-circle me-2">
-				<strong>tu es connecter  </strong>
+				<strong>{{app.user.fullName}}  </strong>
 				{% else %}
 				<img src="https://png.pngtree.com/png-vector/20190919/ourlarge/pngtree-user-login-or-authenticate-icon-on-gray-background-flat-icon-ve-png-image_1742031.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
 				<strong>Connect toi</strong>

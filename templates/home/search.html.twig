@@ -5,11 +5,11 @@
 {% block body %}
 
 
-
-<form action="{{path("app_search")}}"class="row g-3">
+<form id ="form" action="{{path("app_search")}}"class="row g-3">
     <div class="col-md-3">
         <label for="where" class="form-label">Where ?</label>
-        <input type="text" class="form-control" id="where" name="where">
+        <input   type="search" list="datalist" class="form-control" id="where" name="where">
+        <datalist id="datalist"> </datalist>
     </div>
     <div class="col-md-2">
         <label for="begin" class="form-label">When ?</label>
@@ -20,7 +20,7 @@
         <input type="date" class="form-control" id="end" name="end">
     </div>
     <div class="col-md-2">
-        <label for="people" class="form-label">Combien ?</label>
+        <label for="people" class="form-label">Nombre de voyageur?</label>
         <input type="number" class="form-control" id="people" name="people">
     </div>
 
@@ -34,15 +34,25 @@
         {% for data in datas %}
         <div class="card" style="width: 18rem; margin-right:10px; ">
             <img src="https://www.lacomblezimmobilier.com/photos/diapo2vente-appartement-lille-V109_17112019223720_109023.jpg" alt=""   >
-            <div class="card-body">
-              <h5 class="card-title">{{data.name}}</h5>
-              <h5 class="card-title"> <kbd>Nombre de place disponible </kbd> :{{data.getPeopleMax()}}</h5>
-              <p class="card-text">{{data.description}}</p>
-              <a href="#" class="btn btn-primary">{{data.id}} &#8364;</a>
-              <a href="#" class="btn btn-primary"> Reserver   </a>
+            <div class="card-body"> {{dump(data)}}
+              <h5 class="card-title">{{data[0].name}}</h5>   
+              <h5 class="card-title"> <kbd>Pour {{data[0].getPeopleMax()}} Personnes max</kbd></h5>
+              <p class="card-text">{{data[0].description}}</p>
+              {% if data["dist"] %}
+                <p> <kbd>A {{data["dist"] | round}} km de  {{ville}}</kbd></p>
+              {% else %}
+                <p> <kbd>Au centre de  {{ville}} </kbd></p>
+              {% endif %}
+              <a href="#" class="btn btn-primary">{{data[0].price}} &#8364;</a>
+              <a href="{{path("app_newBooking",{'id':data[0].id,'begin':begin,'end':end })}}" class="btn btn-primary"> Reserver   </a>
             </div>
           </div>
         {% endfor %}
+        {% if datas == null %}<p class="alert alert-info" style="width: 100%;">Aucun logement pour ce critère</p>{% endif %}
+    {% else %}
+    <div class="card" style="width: 100%;">
+        <p class="alert alert-info">Heureux de vous retrouver ! Et si nous relancions votre recherche ?</p>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
@@ -37,17 +38,23 @@ class HomeController extends AbstractController
     #[Route('/search', name:'app_search')]
     public function q(Request $request, HoussingRepository $hr){
         $ville = $request->get("where");
-        $begin = $request->get("begin");
-        $end = $request->get("end");
+         
         $people = $request->get("people");
-
+        $begin = $request->query->get('begin');
+        $end = $request->query->get('end');
         
-        //dd($hr->search($ville,2));
-        $datas = $hr->search($ville,$people);
+        $datas = $hr->search($ville,$people,$begin,$end);
+       // dd($datas);
+        
+
+         
 
         return $this->render('home/search.html.twig', [
             'controller_name' => 'HomeController',
-            'datas' => $datas
+            'datas' => $datas,
+            'begin' => $begin,
+            'end' => $end,
+            'ville'=> $ville
         ]);
     }
     #[Route('/acceuil', name:'app_acceuil')]
@@ -57,6 +64,42 @@ class HomeController extends AbstractController
         ]);
         
     }
+
+     // autocompletion input search
+     #[Route('/apiSearch', name: 'apiSearch')]
+     public function search(Request $request, HoussingRepository $hr): Response
+     {
+        // $ville = $request->get("where");
+        // $begin = $request->get("begin");
+        // $end = $request->get("end");
+        // $people = $request->get("people");
+
+        // //dd($hr->search($ville,2));
+        // $datas = $hr->search($ville,$people);
+
+        $villes = $hr->lesVille();
+        $n = count($villes);
+        //dd($n);
+        //dd($villes[0]["ville_nom" ]);
+        $i = 0;
+        $rep=[];
+        while($i != $n){
+            $rep[] = $villes[$i]["ville_nom"];
+            $i++;
+        }
+        //dd($rep);
+        
+        //  $search= $request->query->get("search");
+        //  $allProduct = $productRepo->search($search);
+          
+         
+         return new JsonResponse($rep);
+ 
+         /*return $this->render('home/index.html.twig', [
+             'controller_name' => 'HomeController',
+             'products' => $allProduct
+         ]);*/
+     }
     
 
 

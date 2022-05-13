@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Adresse;
 use App\Entity\Houssing;
 use App\Form\HoussingType;
@@ -28,7 +29,7 @@ class HoussingController extends AbstractController
     }
 
     #[Route('/new', name: 'app_houssing_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,User $user, EntityManagerInterface $entityManager): Response
     {
         $houssing = new Houssing();
 
@@ -40,8 +41,14 @@ class HoussingController extends AbstractController
             $adresse = new Adresse();
             $adresse->setCity($form->get('city')->getData());
             $houssing->setAdresse($adresse);
+            //$houssing->setUser()//
             $adresse->setCountry('France');
             $adresse->setRue(12);
+
+            $city = json_decode($form->get("city")->getData());
+            $adresse->setCity($city[0]);
+            $adresse->setLatitude($city[1]);
+            $adresse->setLongitude($city[2]);
             
             $entityManager->persist($adresse);
             $entityManager->persist($houssing);

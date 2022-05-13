@@ -47,6 +47,30 @@ class BookingRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function reservation($id,$beginDate,$endDate,$price): ?Booking
+   {
+
+    $sql = "INSERT INTO table (field1, field2) VALUES ('foo', 'var')";
+    $stmt = $em->getConnection()->prepare($sql);
+    $stmt->bindValue(':invoice', $invoiceId);
+    $result = $stmt->execute();
+
+
+     
+
+       return $this->createQueryBuilder('b')
+           ->insert()
+           ->andWhere('b.exampleField = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
+
+
+
+
 //    /**
 //     * @return Booking[] Returns an array of Booking objects
 //     */

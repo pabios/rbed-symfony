@@ -31,15 +31,16 @@ class HoussingFormSubscriber implements EventSubscriberInterface{
             $postalCode = $event->getData()["postalCode"];
             $conn = $this->em->getConnection();
 
-            $sql = 'Select ville_nom FROM spec_villes_france_free WHERE ville_code_postal LIKE :code';
+            $sql = 'Select ville_nom,ville_longitude_deg,ville_latitude_deg  FROM spec_villes_france_free WHERE ville_code_postal LIKE :code';
             $stmt = $conn->prepare($sql);
             $resultSet = $stmt->executeQuery(['code' => "%".$postalCode."%"]);
             
             $cities = $resultSet->fetchAllAssociative();
 
             $villes = [];
-            foreach($cities as $c){
-                $villes[$c['ville_nom']] = $c['ville_nom'];
+            foreach($cities as $value){
+               // $villes[$c['ville_nom']] = $c['ville_nom'];
+               $villes[$value['ville_nom']] = json_encode([$value["ville_nom"],$value["ville_latitude_deg"],$value["ville_longitude_deg"]]);
             }
             //dd($cities);
             $form->add('city', ChoiceType::class,  [

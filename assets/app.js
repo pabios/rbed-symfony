@@ -11,6 +11,7 @@ import './styles/app.css';
 // start the Stimulus application
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import './js/formRoomDetails'
+import './js/search';
 
+import './js/formRoomDetails';
 console.log("bonjour app");

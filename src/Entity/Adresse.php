@@ -30,6 +30,12 @@ class Adresse
     #[ORM\OneToMany(mappedBy: 'adresse', targetEntity: Houssing::class)]
     private $houssings;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $longitude;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $latitude;
+
     public function __construct()
     {
         $this->houssings = new ArrayCollection();
@@ -119,5 +125,29 @@ class Adresse
     }
     public function __toString(){
         return $this->city;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?string $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?string $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
     }
 }
